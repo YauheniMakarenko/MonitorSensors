@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.example.monitorsensors.dto.Range;
 import org.example.monitorsensors.enums.SensorType;
 import org.example.monitorsensors.enums.Unit;
+import org.example.monitorsensors.validators.ValidRange;
 
 @Entity
 @Builder
@@ -39,6 +40,7 @@ public class Sensor {
     @Embedded
     @Column(nullable = false)
     @NotNull
+    @ValidRange
     private Range range;
 
     @Enumerated(EnumType.STRING)

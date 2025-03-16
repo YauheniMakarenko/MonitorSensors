@@ -1,20 +1,20 @@
 package org.example.monitorsensors.services;
 
-import org.example.monitorsensors.models.Sensor;
+import org.example.monitorsensors.dto.SensorDto;
 
 import java.util.List;
 
 public interface ISensorManager {
 
-    Sensor saveSensor(Sensor sensor);
+    Long saveSensor(SensorDto sensor);
 
     void removeSensor(Long id);
 
-    List<Sensor> searchSensors(String query);
+    List<SensorDto> searchSensors(String query);
 
-    Sensor updateSensor(Long id, Sensor updatedSensor) throws Exception;
+    String updateSensor(Long id, SensorDto updatedSensor) throws Exception;
 
-    Sensor getSensorById(Long id) throws Exception;
+    SensorDto getSensorById(Long id) throws Exception;
 
-    List<Sensor> getAllSensors();
+    List<SensorDto> getAllSensors();
 }
