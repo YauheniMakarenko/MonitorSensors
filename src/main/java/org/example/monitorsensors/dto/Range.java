@@ -18,11 +18,11 @@ import org.example.monitorsensors.validators.ValidRange;
 @ValidRange
 public class Range {
 
-    @Column(name = "rangeFrom")
+    @Column(name = "range_from")
     @Min(value = 0, message = "Range 'from' must be positive")
     private int from;
 
-    @Column(nullable = false, name = "rangeTo")
+    @Column(nullable = false, name = "range_to")
     @Min(value = 0, message = "Range 'to' must be positive")
     @NotNull
     private int to;

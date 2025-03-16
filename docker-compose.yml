@@ -6,11 +6,13 @@ services:
       - "9020:9020"
     depends_on:
       - db
+      - stats-db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sensors
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_LIQUIBASE_ENABLED: true
     networks:
       - sensor-network
 
@@ -30,8 +32,26 @@ services:
     networks:
       - sensor-network
 
+  stats-db:
+    image: mysql:8
+    container_name: mysql-stats-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: statistics
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_stats_data:/var/lib/mysql
+    networks:
+      - sensor-network
+
 volumes:
   mysql_data:
+    driver: local
+  mysql_stats_data:
     driver: local
 
 networks:

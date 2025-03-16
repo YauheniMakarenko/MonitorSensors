@@ -4,6 +4,7 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -24,6 +25,18 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    @Value("${sensor.api.admin.username}")
+    private String adminUsername;
+
+    @Value("${sensor.api.admin.password}")
+    private String adminPassword;
+
+    @Value("${sensor.api.viewer.username}")
+    private String viewerUsername;
+
+    @Value("${sensor.api.viewer.password}")
+    private String viewerPassword;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -40,14 +53,14 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("admin")
+                .username(adminUsername)
+                .password(adminPassword)
                 .roles(ADMIN.name())
                 .build();
 
         UserDetails viewer = User.withDefaultPasswordEncoder()
-                .username("viewer")
-                .password("viewer")
+                .username(viewerUsername)
+                .password(viewerPassword)
                 .roles(VIEWER.name())
                 .build();
 

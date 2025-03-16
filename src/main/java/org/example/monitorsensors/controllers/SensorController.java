@@ -9,14 +9,10 @@ import org.example.monitorsensors.services.SensorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/sensors")
@@ -65,7 +61,7 @@ public class SensorController {
     @Operation(summary = "Remove sensor", description = "Allow to remove sensor from DB")
     public String deleteSensor(@PathVariable Long id) {
         sensorService.removeSensor(id);
-        return String.format("Sensor %s was removed", id);
+        return String.format("Sensor %s has been removed", id);
     }
 
     // Added for myself

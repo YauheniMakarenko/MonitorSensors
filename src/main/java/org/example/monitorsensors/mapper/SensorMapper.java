@@ -28,10 +28,13 @@ public interface SensorMapper {
     default Unit mapStringToUnit(SensorDto dto) {
         if (dto.getUnit() == null)
             return null;
-        return switch (dto.getUnit()) {
+
+        String normalizedUnit = normalizeUnit(dto.getUnit());
+
+        return switch (normalizedUnit) {
             case "bar" -> Unit.BAR;
             case "voltage" -> Unit.VOLTAGE;
-            case "°С" -> Unit.CELSIUS;
+            case "℃" -> Unit.CELSIUS; // Используем нормализованный символ
             case "%" -> Unit.PERCENTAGE;
             default -> throw new IllegalArgumentException("Invalid unit: " + dto.getUnit());
         };
@@ -41,10 +44,11 @@ public interface SensorMapper {
     default String mapUnitToString(Sensor entity) {
         if (entity.getUnit() == null)
             return null;
+
         return switch (entity.getUnit()) {
             case BAR -> "bar";
             case VOLTAGE -> "voltage";
-            case CELSIUS -> "°C";
+            case CELSIUS -> "℃";
             case PERCENTAGE -> "%";
         };
     }
@@ -59,5 +63,20 @@ public interface SensorMapper {
     @Named("mapSensorTypeToString")
     default String mapSensorTypeToString(Sensor entity) {
         return (entity.getType() != null) ? entity.getType().name().toLowerCase() : null;
+    }
+
+    default String normalizeUnit(String unit) {
+        if (unit == null) {
+            return null;
+        }
+        return unit.replace("°С", "℃")
+                .replace("°C", "℃")
+                .replace("oС", "℃")
+                .replace("oC", "℃")
+                .replace("°c", "℃")
+                .replace("°c", "℃")
+                .replace("oc", "℃")
+                .replace("oc", "℃");
+
     }
 }

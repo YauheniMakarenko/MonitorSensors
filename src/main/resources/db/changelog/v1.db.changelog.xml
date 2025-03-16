@@ -1,0 +1,32 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="1" author="developer">
+        <createTable tableName="sensors">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="range_from" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="range_to" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit" type="VARCHAR(10)"/>
+            <column name="location" type="VARCHAR(40)"/>
+            <column name="description" type="VARCHAR(200)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
