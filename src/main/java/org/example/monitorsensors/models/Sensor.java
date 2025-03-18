@@ -1,9 +1,15 @@
 package org.example.monitorsensors.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,19 +34,15 @@ public class Sensor {
     private Long id;
 
     @Column(nullable = false, length = 30)
-    @NotBlank(message = "Name cannot be empty")
-    @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters")
     private String name;
 
     @Column(nullable = false, length = 15)
-    @NotBlank(message = "Model cannot be empty")
-    @Size(max = 15, message = "Model cannot exceed 15 characters")
     private String model;
 
     @Embedded
     @Column(nullable = false)
-    @NotNull
     @ValidRange
+    @NotNull
     private Range range;
 
     @Enumerated(EnumType.STRING)
@@ -52,10 +54,8 @@ public class Sensor {
     private Unit unit;
 
     @Column(length = 40)
-    @Size(max = 40, message = "Location cannot exceed 40 characters")
     private String location;
 
     @Column(length = 200)
-    @Size(max = 200, message = "Description cannot exceed 200 characters")
     private String description;
 }

@@ -4,7 +4,12 @@ import org.example.monitorsensors.dto.SensorDto;
 import org.example.monitorsensors.enums.SensorType;
 import org.example.monitorsensors.enums.Unit;
 import org.example.monitorsensors.models.Sensor;
-import org.mapstruct.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring")
 public interface SensorMapper {
